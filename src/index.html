@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="shadow-sm px-2 h-16">
+      <div class="max-w-md mx-auto flex h-full items-center justify-between">
+        <h1 class="font-bold text-2xl text-green-300">Firebase Todo App</h1>
+        <div class="uppercase font-extrabold">app</div>
+      </div>
+    </header>
+    <section class="container max-w-md px-2 my-4 rounded-md mx-auto">
+      <h1 class="underline decoration-black">Thins I need to do!</h1>
+
+      <form class="form my-4">
+        <input type="text" class="border w-full p-1" class="input" />
+      </form>
+
+      <ul>
+       
+      </ul>
+    </section>
+
+    <script>
+      const form = document.querySelector(".form");
+      const todoList = document.querySelector("ul");
+
+      form.addEventListener("submit", handleTodoSubmit);
+
+      function handleTodoSubmit(e) {
+        e.preventDefault();
+        const text = getInputValue("input");
+        addNewTodo(text);
+        clearInput("input");
+      }
+
+      function addNewTodo(todo) {
+          const li = createElement("li");
+          const div = createElement("div");
+          const checkbox = createElement("input");
+          const para = createElement("p", todo);
+
+
+          li.setAttribute("class", "my-2 h-10");
+          div.setAttribute("class","h-full shadow-sm flex rounded-sm items-center bg-gray-100 px-2");
+          checkbox.setAttribute("type", "checkbox");
+          para.setAttribute("class", "px-2 font-light");
+
+          div.appendChild(checkbox);
+          div.appendChild(para);
+          li.appendChild(div);
+
+          todoList.appendChild(li);
+
+          checkbox.addEventListener("change", e => handleTodoChecked(e));
+
+      }
+
+
+
+      // selector must be input 
+      function getInputValue(selector) {
+        return document.querySelector(selector).value;
+      }
+
+      // selector must be input 
+      function clearInput(selector) {
+          return document.querySelector(selector).value = "";
+      }
+
+      function createElement(tag, textContent) {
+          const newEl = document.createElement(tag);
+          newEl.textContent = textContent || "";
+          return newEl;
+      }
+
+      function handleTodoChecked(e) {
+        e.target.nextSibling.classList.toggle("line-through");
+        markCompleted("1")
+      }
+
+      function markCompleted(id){
+
+        console.log("completed", id);
+          
+      }
+
+      function deleteTodo(id) {
+
+      }
+    </script>
+  </body>
+</html>
